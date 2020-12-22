@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}
+我的統計圖表
+{% endblock %}
+{% block titlemessage %}
+    <h1> 我的統計圖表 </h1>
+{% endblock %}
+{% block content %}
+
+<div id='content'></div>
+
+<button class='btn btn-sm'><a href='/mychart/'>長條圖</a></button>
+<button class='btn btn-sm'><a href='/mychart2/'>圓餅圖</a></button>
+{% for b in branchs %}
+    <button class="btn btn-sm">
+        <a href="/mychart/{{b.id}}">
+            {{ b.title }}
+        </a>
+    </button>
+{% endfor %}
+<br>
+月份:
+<button class='btn btn-sm'><a href="/chartbydate/2020/10">2020/10</a></button>
+<button class='btn btn-sm'><a href="/chartbydate/2020/11">2020/11</a></button>
+年份:
+<button class='btn btn-sm'><a href="/chartbydate/2020/">2020</a></button>
+<button class='btn btn-sm'><a href="/chartbydate/2021/">2021</a></button>
+
+<center>
+<table width=1000>
+    <tr><td>
+<canvas id="myChart" width="400" height="300"></canvas>
+</td></tr>
+</center>
+<script>
+
+
+
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [ {% for item in data %} '{{ item.branch}}-{{ item.income_month}}', {% endfor %} ],
+        datasets: [{
+            label: '{{title}}',
+            data: [ {% for item in data %} '{{ item.income}}', {% endfor %} ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(202, 142, 194, 0.2)',
+                'rgba(194, 194, 135, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)',
+                'rgba(202, 142, 194, 1)',
+                'rgba(194, 194, 135, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+</script>
+
+{% endblock %}

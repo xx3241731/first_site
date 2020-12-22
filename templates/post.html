@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+許博嘉的網站
+{% endblock %}
+{% block titlemessage %}
+    <h1> {{ post.title }} </h1>
+{% endblock %}
+{% block content %}
+      <div class='card'>
+
+          <div class='card-body'>
+            {{ post.body | linebreaks }}
+          </div>
+          <div class='card-footer'>
+              貼文日期：{{ post.pub_date }}
+          </div>
+{% endblock %}

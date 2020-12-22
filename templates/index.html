@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+許博嘉的網站
+{% endblock %}
+{% block titlemessage %}
+<h1>我的上課用Django網站</h1>
+{% endblock %}
+{% block content %}
+<table class="table table-striped">
+  <tr>
+    <th>編號</th>
+    <th>主題</th>
+    <th>張貼時間</th>
+  </tr>
+  {% for post in posts %}
+  <tr>
+    <td>{{ post.id }}</td>
+    <td>
+      <a href='/post/{{post.slug}}/'>{{ post.title }}</a>
+    </td>
+    <td>{{ post.pub_date }}</td>
+  </tr>
+  {% endfor %}
+</table>
+此網頁被瀏覽{{ hit_count }}次
+{% endblock %}
